@@ -11,25 +11,15 @@ public class FoodDatabase {
     }
 
     private void initializeDatabase() {
-        // Foods
-        foodData.put("Nasi Goreng", 350.0); // Fried rice
-        foodData.put("Sate Ayam", 200.0); // Chicken satay
-        foodData.put("Rendang", 400.0); // Spicy beef stew
-        foodData.put("Bakso", 150.0); // Meatball soup
-        foodData.put("Gado-Gado", 250.0); // Mixed vegetables with peanut sauce
-        foodData.put("Tempe Goreng", 160.0); // Fried tempeh
-        foodData.put("Ayam Goreng", 300.0); // Fried chicken
-        foodData.put("Mie Goreng", 450.0); // Fried noodles
-        foodData.put("Pempek", 200.0); // Fried fish cake with vinegar sauce
-        foodData.put("Martabak Manis", 500.0); // Sweet thick pancake
+        // Data makanan
+        foodData.put("Nasi Goreng", 350.0);
+        foodData.put("Sate Ayam", 200.0);
+        foodData.put("Rendang", 400.0);
 
-        // Drinks
-        drinkData.put("Es Teh Manis", 120.0); // Sweet iced tea
-        drinkData.put("Jus Alpukat", 180.0); // Avocado juice
-        drinkData.put("Es Jeruk", 100.0); // Orange juice
-        drinkData.put("Air Mineral", 0.0); // Water
-        drinkData.put("Kopi Susu", 150.0); // Coffee with milk
-        drinkData.put("Susu Coklat", 200.0); // Chocolate milk
+        // Data minuman
+        drinkData.put("Es Teh Manis", 120.0);
+        drinkData.put("Jus Alpukat", 180.0);
+        drinkData.put("Air Mineral", 0.0);
     }
 
     public String[] getFoodOptions() {
@@ -43,10 +33,48 @@ public class FoodDatabase {
     public Double getCalories(String itemName) {
         if (foodData.containsKey(itemName)) {
             return foodData.get(itemName);
-        } else if (drinkData.containsKey(itemName)) {
-            return drinkData.get(itemName);
-        } else {
-            return null;
         }
+        return drinkData.getOrDefault(itemName, null);
+    }
+
+    // CRUD Functions
+    public void addFood(String name, double calories) {
+        foodData.put(name, calories);
+    }
+
+    public void addDrink(String name, double calories) {
+        drinkData.put(name, calories);
+    }
+
+    public void removeFood(String name) {
+        foodData.remove(name);
+    }
+
+    public void removeDrink(String name) {
+        drinkData.remove(name);
+    }
+
+    public void updateFood(String name, double calories) {
+        if (foodData.containsKey(name)) {
+            foodData.put(name, calories);
+        }
+    }
+
+    public void updateDrink(String name, double calories) {
+        if (drinkData.containsKey(name)) {
+            drinkData.put(name, calories);
+        }
+    }
+
+    public String getFoodList() {
+        StringBuilder result = new StringBuilder("Foods:\n");
+        foodData.forEach((key, value) -> result.append(key).append(" - ").append(value).append(" kcal\n"));
+        return result.toString();
+    }
+
+    public String getDrinkList() {
+        StringBuilder result = new StringBuilder("Drinks:\n");
+        drinkData.forEach((key, value) -> result.append(key).append(" - ").append(value).append(" kcal\n"));
+        return result.toString();
     }
 }
