@@ -9,16 +9,19 @@ class LoginFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel utama dengan gambar latar belakang
+        // Panel utama dengan gaya "frosted glass"
         JPanel mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon background = new ImageIcon("C:\\Users\\davaa\\Downloads\\images (3).jpg");
-                g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
+                Graphics2D g2d = (Graphics2D) g;
+                Color color1 = new Color(255, 255, 255, 200); // Putih transparan
+                g2d.setPaint(color1);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
             }
         };
         mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -26,18 +29,18 @@ class LoginFrame extends JFrame {
 
         // Label "Username"
         JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setFont(new Font("San Francisco", Font.BOLD, 16));
+        usernameLabel.setForeground(Color.DARK_GRAY);
         gbc.gridx = 0;
         gbc.gridy = 0;
         mainPanel.add(usernameLabel, gbc);
 
         // TextField untuk "Username"
         JTextField usernameField = new JTextField(15);
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
+        usernameField.setFont(new Font("San Francisco", Font.PLAIN, 14));
         usernameField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.GRAY, 1),
-                new EmptyBorder(5, 5, 5, 5)
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                new EmptyBorder(8, 8, 8, 8)
         ));
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -45,18 +48,18 @@ class LoginFrame extends JFrame {
 
         // Label "Password"
         JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        passwordLabel.setForeground(Color.WHITE);
+        passwordLabel.setFont(new Font("San Francisco", Font.BOLD, 16));
+        passwordLabel.setForeground(Color.DARK_GRAY);
         gbc.gridx = 0;
         gbc.gridy = 1;
         mainPanel.add(passwordLabel, gbc);
 
         // PasswordField untuk "Password"
         JPasswordField passwordField = new JPasswordField(15);
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+        passwordField.setFont(new Font("San Francisco", Font.PLAIN, 14));
         passwordField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.GRAY, 1),
-                new EmptyBorder(5, 5, 5, 5)
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 1),
+                new EmptyBorder(8, 8, 8, 8)
         ));
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -64,11 +67,12 @@ class LoginFrame extends JFrame {
 
         // Tombol "Login"
         JButton loginButton = new JButton("Login");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
-        loginButton.setBackground(new Color(34, 139, 34)); // Hijau
+        loginButton.setFont(new Font("San Francisco", Font.BOLD, 14));
+        loginButton.setBackground(new Color(0, 122, 255)); // Biru khas iOS
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
-        loginButton.setPreferredSize(new Dimension(100, 30));
+        loginButton.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.EAST;
@@ -87,13 +91,19 @@ class LoginFrame extends JFrame {
             }
         });
 
+        // Hover effect untuk tombol
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                loginButton.setBackground(new Color(10, 132, 255));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                loginButton.setBackground(new Color(0, 122, 255));
+            }
+        });
+
         add(mainPanel);
     }
 
-     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            LoginFrame loginFrame = new LoginFrame();
-            loginFrame.setVisible(true);
-        });
-    }
-}
