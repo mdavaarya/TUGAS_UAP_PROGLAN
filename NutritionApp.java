@@ -106,4 +106,4 @@ class LoginFrame extends JFrame {
 
         add(mainPanel);
     }
-
+}
