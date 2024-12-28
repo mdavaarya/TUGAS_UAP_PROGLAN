@@ -1,5 +1,3 @@
-package org.example.uap;
-
 import java.util.HashMap;
 
 public class FoodDatabase {
